@@ -1,4 +1,4 @@
-_ = require('./tth_')
+#_ = require('./tth_')
 
 EMPTY = 0
 CUP = 1
@@ -33,11 +33,11 @@ class Simulation
     move = @strategy[strategy_index]
     @move(move)
 
-  run: ->
+
+  run: (display_fn) ->
     @reset()
     for i in [0...200]
       @step()
-      # @display()
     @score
 
   move: (move) ->
@@ -77,7 +77,7 @@ class Simulation
       when 'R'
         @move(_.random(['N','E','S','W']))
 
-  display: () ->
+  display_console: () ->
     console.log '***********************'
     console.log @score
     board = for x in [0..11]
@@ -89,6 +89,33 @@ class Simulation
     for y in [0..11]
       console.log board[y].join()
     ''
+
+  display_canvas: (element_id) ->
+    board = document.getElementById(element_id)
+    context = board.getContext('2d')
+    line_colour = '#cdcdcd'
+    background = '#fff'
+    fill_colour = '#666'
+    context.fillStyle = background
+    context.fillRect(0,0,board.width,board.height)
+    cell_size = board.width / 12
+    context.strokeStyle = line_colour
+    context.fillStyle = fill_colour
+    for x in [1..10]
+      for y in [1..10]
+        coords = [x * cell_size, y * cell_size, cell_size, cell_size]
+        context.strokeRect.apply context, coords
+        if @board[y][x] is CUP
+          context.beginPath()
+          context.arc(x * cell_size + cell_size / 2, y * cell_size + cell_size / 2, 5, 0, Math.PI*2, true);
+          context.closePath()
+          context.fill()
+    context.beginPath()
+    context.arc(@x * cell_size + cell_size / 2, @y * cell_size + cell_size / 2, 20, 0, Math.PI*2, true);
+    context.closePath()
+    context.fill()
+
+    null
 
   strategy_index: (up,down,left,right,current) ->
     up * Math.pow(3,4) + down * Math.pow(3,3) + left * Math.pow(3,2) + right * Math.pow(3,1) + current
@@ -168,10 +195,24 @@ run = ->
     evolve()
   0
 
-run()
+#run()
 
-test = 'NG0EGRWGWWGNWWEWG0SGREGS00NSGWSSRWGWSWNWWSREESGESGEEEREGGEGNNGGEGEEG0NEGEGGEGW0EGNGSEGGWGSWGEWWWNGSRNENG0GSRNSWSS0SGSSW0WWRGNWEGNRGSSS0NGEEGRNGRWGSWGWRNW0RG00WGWNWGREGRWGEWGSEGGNN0SGESGWGERSG0ES0SGSWSSRSWS0RSG0SGER0SGRNGEEESRRGERESG0SNEEWSN0G'
+window.robbie = ->
+  test = 'NG0EGRWGWWGNWWEWG0SGREGS00NSGWSSRWGWSWNWWSREESGESGEEEREGGEGNNGGEGEEG0NEGEGGEGW0EGNGSEGGWGSWGEWWWNGSRNENG0GSRNSWSS0SGSSW0WWRGNWEGNRGSSS0NGEEGRNGRWGSWGWRNW0RG00WGWNWGREGRWGEWGSEGGNN0SGESGWGERSG0ES0SGSWSSRSWS0RSG0SGER0SGRNGEEESRRGERESG0SNEEWSN0G'
+  s = new Simulation(test)
+  s.display_canvas('board')
+  animation_rate = 100
+  count = 0
+  step = ->
+    s.step()
+    s.display_canvas('board')
+    count++
+    setTimeout step,animation_rate if count < 200
+  step()
+
+
+
 
 # console.log (new Simulation test).run()
 
-exports.Simulation = Simulation
+window.Simulation = Simulation
