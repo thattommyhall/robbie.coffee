@@ -309,9 +309,11 @@ window.robbie = function() {
     s.step();
     s.display_canvas('board');
     count++;
-    if (count < 200) {
-      return setTimeout(step, animation_rate);
+    if (count === 200) {
+      s.reset();
+      count = 0;
     }
+    return setTimeout(step, animation_rate);
   };
   return step();
 };

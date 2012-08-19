@@ -4,10 +4,18 @@
   <meta http-equiv="content-type" content="text/html; charset=utf-8">
   <canvas width="600" height="600" id="board" onclick="javascript: clickHandler(event);"></canvas>
   <title>Robbie The Robot</title>
-  <script type="text/javascript" src="robbie.js"></script>
-  <script src="underscore.js"></script>
-  <script src="tth_.js"></script>
-  <link rel="stylesheet" href="robbie.css" type="text/css" media="screen" charset="utf-8">
+  <script src="public/javascripts/robbie.js"></script>
+  <script src="public/javascripts/underscore.js"></script>
+  <script src="public/javascripts/tth_.js"></script>
+  <link rel="stylesheet" href="public/robbie.css" type="text/css" media="screen" charset="utf-8">
+  <script src="socket.io/socket.io.js"></script>
+  <script>
+    var socket = io.connect('http://localhost');
+    socket.on('news', function (data) {
+    console.log(data);
+    socket.emit('my other event', { my: 'data' });
+    });
+  </script>
 </head>
 <body onload="robbie()">
 
