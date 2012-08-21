@@ -1,4 +1,4 @@
-_ = require './underscore'
+_ = require './underscore' if global?
 
 _.mixin
   random: (list) ->
@@ -8,8 +8,8 @@ _.mixin
       key = _.random(_.keys(list))
       return [key,list[key]]
 
-if module?.exports?
-  module.exports = _
-  _._ = _
-else
-  root['_'] = _
+if global?
+  global['_'] = _
+
+if window?
+  window['_'] = _
