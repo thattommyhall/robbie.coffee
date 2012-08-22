@@ -87,6 +87,11 @@ class Simulation
     for y in [0..11]
       console.log board[y].join()
     ''
+  random_dna: ->
+    strategy = ''
+    for i in [0...242]
+      strategy += _.random(['N','E','S','W','G','0','R'])
+    strategy
 
   display_canvas: (element_id) ->
     board = document.getElementById(element_id)

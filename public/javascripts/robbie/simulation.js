@@ -148,6 +148,15 @@ Simulation = (function() {
     return '';
   };
 
+  Simulation.prototype.random_dna = function() {
+    var i, strategy, _i;
+    strategy = '';
+    for (i = _i = 0; _i < 242; i = ++_i) {
+      strategy += _.random(['N', 'E', 'S', 'W', 'G', '0', 'R']);
+    }
+    return strategy;
+  };
+
   Simulation.prototype.display_canvas = function(element_id) {
     var background, board, cell_size, context, coords, fill_colour, line_colour, x, y, _i, _j;
     board = document.getElementById(element_id);

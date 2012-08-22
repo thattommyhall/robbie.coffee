@@ -23,11 +23,6 @@ app.configure 'development', ->
 server = http.createServer(app).listen app.get('port'), ->
   console.log "Express serverlistening on port " + app.get('port')
 
-random_strategy = ->
-  strategy = ''
-  for i in [0...242]
-    strategy += _.random(['N','E','S','W','G','0','R'])
-  strategy
 
 max_fitness = (population) ->
   max = population[0]
@@ -36,7 +31,7 @@ max_fitness = (population) ->
   max
 
 population = for i in [0...200]
-  dna = random_strategy()
+  dna = Simulation.random_dna()
   dna: dna
   fitness: (new Simulation(dna)).fitness()
 
@@ -75,10 +70,10 @@ io.sockets.on 'connection', (socket) ->
     console.log "#{socket.id} left"
 
 
-app.get '/robbie', (req,res) ->
+app.get '/', (req,res) ->
   res.render 'robbie/index', {title: "Evolving Robbie"}
 
-app.get '/robbie/hoipe', (req, res) ->
+app.get '/hoipe', (req, res) ->
   res.render('robbie/hoipe', { title: "Here's one I prepared earlier" })
 
 update_population = (new_population) ->
@@ -86,4 +81,3 @@ update_population = (new_population) ->
   console.log population.length
   max = max_fitness(population)
   console.log max
-
