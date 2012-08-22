@@ -14,7 +14,7 @@ socket.on 'status', (new_status) ->
 refresh = (status)->
   $('#connected').html(status.connected)
   $('#fittest-dna').html(status.fittest.dna)
-  $('#uptime').html(status.uptime/1000/60)
+  $('#uptime').html("#{(status.uptime/1000/60).toFixed(2)} Minutes")
   $('#fittest-fitness').html(status.fittest.fitness)
 
 launch_worker = ->

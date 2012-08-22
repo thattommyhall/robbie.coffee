@@ -45,4 +45,7 @@ canvas {
   margin-bottom:20px;
   font-style:italic;
   font-size:0.7em;
+  width: 600px;
+  word-break: break-all;
+  margin: 0 auto;
 }
