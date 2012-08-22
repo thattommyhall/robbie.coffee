@@ -28,3 +28,9 @@ task :update_upstart do
 end
 
 after "deploy:restart", "deploy:cleanup"
+
+namespace :deploy do
+  task :restart do
+    "sudo stop robbie; sudo start robbie"
+  end
+end
