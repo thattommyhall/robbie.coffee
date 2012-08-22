@@ -31,7 +31,7 @@ max_fitness = (population) ->
   max
 
 population = for i in [0...200]
-  dna = Simulation.random_dna()
+  dna = (new Simulation).random_dna()
   dna: dna
   fitness: (new Simulation(dna)).fitness()
 

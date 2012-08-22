@@ -6,7 +6,7 @@ block content
     script(src="/javascripts/robbie/simulation.js")
     canvas(width="600",height="600",id="board")
     :coffeescript
-      fittest = Simulation.random_dna
+      fittest = (new Simulation).random_dna()
       launch_worker = ->
         worker1 = new Worker("/javascripts/robbie/worker.js");
         worker1.postMessage("");
