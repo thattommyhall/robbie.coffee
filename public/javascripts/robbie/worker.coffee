@@ -17,6 +17,13 @@ weighted_choice = (population) ->
     i++
   _.sortBy(population,(strategy) -> strategy.fitness)[population.length-1-i]
 
+max_fitness = (population) ->
+  max = population[0]
+  for strategy in population
+    max = strategy if strategy.fitness > max.fitness
+  max
+
+
 evolve = (population) ->
   new_population = []
   for i in [0...100]
@@ -39,11 +46,12 @@ evolve = (population) ->
       fitness: (new Simulation(dna2).fitness())
   new_population
 
-socket = io.connect('http://109.107.37.65')
+#socket = io.connect('http://109.107.37.65')
+socket = io.connect('http://localhost:9292')
 
 socket.on 'population', (new_population) ->
   postMessage "Got new population from master"
-  postMessage weighted_choice(population)
+  postMessage max_fitness(population)
   population = population.concat new_population
 
 socket.on 'connect_failed', ->
@@ -53,9 +61,9 @@ socket.on 'error', ->
   postMessage('error')
 
 tick = ->
-  postMessage "Evolving"
+  #postMessage "Evolving"
   for i in [0...10]
-    postMessage i
+    #postMessage i
     population = evolve(population) if population.length > 1
   socket.emit 'result', population
   setTimeout tick,0

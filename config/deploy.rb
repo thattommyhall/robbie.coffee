@@ -20,6 +20,7 @@ task :custom_setup do
   sudo "add-apt-repository ppa:chris-lea/node.js"
   sudo "apt-get update"
   sudo "apt-get install -y --force-yes git nodejs nodejs-dev build-essential npm"
+  sudo "npm install -g coffee-script"
 end
 
 task :update_upstart do
@@ -31,6 +32,6 @@ after "deploy:restart", "deploy:cleanup"
 
 namespace :deploy do
   task :restart do
-    "sudo stop robbie; sudo start robbie"
+    #"sudo stop robbie; sudo start robbie"
   end
 end

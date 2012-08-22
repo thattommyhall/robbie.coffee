@@ -6,16 +6,4 @@ block content
     script(src="/javascripts/robbie/simulation.js")
     script(src="/javascripts/robbie/evolve.js")
     canvas(width="600",height="600",id="board")
-    :coffeescript
-      fittest = (new Simulation).random_dna()
-      launch_worker = ->
-        worker1 = new Worker("/javascripts/robbie/worker.js");
-        worker1.postMessage("");
-        worker1.onmessage = (message) ->
-          if message.dna?
-            fittest = message
-          else
-            console.log(message.data)
-      for i in [0..1]
-        launch_worker()
      

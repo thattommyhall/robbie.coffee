@@ -35,6 +35,9 @@ population = for i in [0...200]
   dna: dna
   fitness: (new Simulation(dna)).fitness()
 
+console.log "Populkation"
+console.log population
+
 weighted_choice = (population) ->
   l = population.length
   total = (l + 1)/2 * l

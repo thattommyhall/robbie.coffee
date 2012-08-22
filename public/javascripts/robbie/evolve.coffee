@@ -4,12 +4,12 @@ launch_worker = ->
   worker1 = new Worker("/javascripts/robbie/worker.js");
   worker1.postMessage("");
   worker1.onmessage = (message) ->
-    if message.dna?
-      fittest = message.dna
+    if message.data?.dna?
+      fittest = message.data.dna
     else
       console.log(message.data)
 
-for i in [0..1]
+for i in [0]
   launch_worker()
 
 run_sim = ->
@@ -27,6 +27,10 @@ run_sim = ->
     setTimeout step,animation_rate
   step()
 
+run_continually = ->
+  run_sim()
+  setTimeout run_continually,0
 
-run_sim()
+
+run_continually()
 
