@@ -3,19 +3,61 @@ importScripts('/javascripts/underscore.js')
 importScripts('/javascripts/tth_.js')
 importScripts('/javascripts/robbie/simulation.js')
 
-@onmessage = (event) ->
-  socket = io.connect('http://localhost:9292')
+population = []
 
-  socket.on 'population', (population) ->
-    postMessage "recieved"
-    new_population = for strategy in population
-      dna: strategy.dna
-      fitness: (new Simulation(strategy.dna).fitness())
-    socket.emit 'result', new_population
+weighted_choice = (population) ->
+  l = population.length
+  total = (l + 1)/2 * l
+  position = (Math.ceil(Math.random() * total))
+  i = 0
+  so_far = l
+  while so_far < position
+    l = l - 1
+    so_far += l
+    i++
+  _.sortBy(population,(strategy) -> strategy.fitness)[population.length-1-i]
 
-  socket.on 'connect_failed', ->
-    postMessage('connect failed')
+evolve = (population) ->
+  new_population = []
+  for i in [0...100]
+    s1 = weighted_choice(population).dna
+    s2 = weighted_choice(population).dna
+    splitpoint = Math.floor(Math.random() * s1.length)
+    dna1 = s1.slice(0,splitpoint) + s2.slice(splitpoint,s2.length)
+    for i in [0...dna1.length]
+      if Math.random() < 0.001
+        dna1 = dna1.slice(0,i) + _.random(['N','E','S','W','G','0','R']) + dna1.slice(i+1,dna1.length)
+    dna2 = s2.slice(0,splitpoint) + s1.slice(splitpoint,s1.length)
+    for i in [0...dna2.length]
+      if Math.random() < 0.001
+        dna2 = dna2.slice(0,i) + _.random(['N','E','S','W','G','0','R']) + dna2.slice(i+1,dna2.length)
+    new_population.push
+      dna: dna1
+      fitness: (new Simulation(dna1).fitness())
+    new_population.push
+      dna: dna2
+      fitness: (new Simulation(dna2).fitness())
+  new_population
 
-  socket.on 'error', ->
-    postMessage('error')
+socket = io.connect('http://localhost:9292')
 
+socket.on 'population', (new_population) ->
+  postMessage "Got new population from master"
+  postMessage weighted_choice(population)
+  population = population.concat new_population
+
+socket.on 'connect_failed', ->
+  postMessage('connect failed')
+
+socket.on 'error', ->
+  postMessage('error')
+
+tick = ->
+  postMessage "Evolving"
+  for i in [0...10]
+    postMessage i
+    population = evolve(population) if population.length > 1
+  socket.emit 'result', population
+  setTimeout tick,0
+
+tick()

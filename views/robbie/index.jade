@@ -1,16 +1,16 @@
 extends ../layout
 
 block content
-  script(src='/socket.io/socket.io.js')
-  script(src="/javascripts/robbie/simulation.js")
-
-  :coffeescript
-    for i in [0]
-      worker = new Worker("/javascripts/robbie/worker.js");
-      worker.postMessage("");
-      worker.onmessage = (message) ->
-        console.log(message)
-        
-
-
-  canvas(width="600",height="600",id="board")
+  body 
+    script(src='/socket.io/socket.io.js')
+    script(src="/javascripts/robbie/simulation.js")
+    canvas(width="600",height="600",id="board")
+    :coffeescript
+      launch_worker = ->
+        worker1 = new Worker("/javascripts/robbie/worker.js");
+        worker1.postMessage("");
+        worker1.onmessage = (message) ->
+          console.log(message.data)
+      for i in [0...4]
+        launch_worker()
+     

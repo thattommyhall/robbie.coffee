@@ -1,0 +1,10 @@
+start on runlevel [2345]
+stop on runlevel [!2345]
+ 
+export HOME="/home/deploy"
+
+chdir /var/www/robbie/current
+
+exec npm run  >> /var/log/robbie.log 2>&1
+
+respawn

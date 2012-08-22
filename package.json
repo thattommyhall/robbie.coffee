@@ -1,12 +1,14 @@
 {
-  "name": "application-name",
+  "name": "robbie",
   "version": "0.0.1",
   "private": true,
   "scripts": {
-    "start": "node app"
+    "start": "./node_modules/.bin/coffee server.coffee"
   },
   "dependencies": {
     "express": "3.0.0rc3",
-    "jade": "*"
+    "jade": "*",
+    "coffee-script": "*",
+    "socket.io": "*"
   }
 }

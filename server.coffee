@@ -1,6 +1,5 @@
 express = require 'express'
 http = require 'http'
-routes = require './routes'
 path = require 'path'
 require './public/javascripts/tth_'
 Simulation = require('./public/javascripts/robbie/simulation.js').Simulation
@@ -41,22 +40,6 @@ population = for i in [0...200]
   dna: dna
   fitness: (new Simulation(dna)).fitness()
 
-io = require('socket.io').listen(server)
-io.set("log level", 1)
-io.sockets.on 'connection', (client) ->
-  update_population()
-  client.on 'result', (new_population) ->
-    console.log "got result"
-    population = new_population
-    update_population()
-    null
-
-app.get '/robbie', (req,res) ->
-  res.render 'robbie/index', {title: "Evolving Robbie"}
-
-app.get '/robbie/hoipe', (req, res) ->
-  res.render('robbie/hoipe', { title: "Here's one I prepared earlier" })
-
 weighted_choice = (population) ->
   l = population.length
   total = (l + 1)/2 * l
@@ -69,33 +52,38 @@ weighted_choice = (population) ->
     i++
   _.sortBy(population,(strategy) -> strategy.fitness)[population.length-1-i]
 
-evolve = (population) ->
-  new_population = []
-  for i in [0...population.length/2]
-    s1 = weighted_choice(population).dna
-    s2 = weighted_choice(population).dna
-    splitpoint = Math.floor(Math.random() * s1.length)
-    dna1 = s1.slice(0,splitpoint) + s2.slice(splitpoint,s2.length)
-    for i in [0...dna1.length]
-      if Math.random() < 0.001
-        dna1 = dna1.slice(0,i) + _.random(['N','E','S','W','G','0','R']) + dna1.slice(i+1,dna1.length)
-    dna2 = s2.slice(0,splitpoint) + s1.slice(splitpoint,s1.length)
-    for i in [0...dna2.length]
-      if Math.random() < 0.001
-        dna2 = dna2.slice(0,i) + _.random(['N','E','S','W','G','0','R']) + dna2.slice(i+1,dna2.length)
-    new_population.push
-      dna: dna1
-      fitness: null
-    new_population.push
-      dna: dna2
-      fitness: null
-  console.log "Max fitness is #{max_fitness(population).fitness}"
-  new_population
+client_count = 0
+result_count = 0
+io = require('socket.io').listen(server)
+io.set("log level", 1)
+io.sockets.on 'connection', (socket) ->
+  console.log "#{socket.id} connected"
+  client_count++
+  socket.emit 'population', population
+  socket.on 'result', (new_population) ->
+    console.log "got result from #{socket.id}"
+    result_count++
+    console.log result_count
+    if result_count > client_count
+      population = for i in [0...200]
+        weighted_choice(population)
+      io.sockets.emit 'population', population
+      result_count = 0
+    update_population(new_population)
+  socket.on 'disconnect', ->
+    client_count--
+    console.log "#{socket.id} left"
 
-update_population = ->
-  new_population = evolve(population)
-  population = new_population
-  io.sockets.emit 'population', population
-  #console.log population
 
-update_population()
+app.get '/robbie', (req,res) ->
+  res.render 'robbie/index', {title: "Evolving Robbie"}
+
+app.get '/robbie/hoipe', (req, res) ->
+  res.render('robbie/hoipe', { title: "Here's one I prepared earlier" })
+
+update_population = (new_population) ->
+  population = population.concat new_population
+  console.log population.length
+  max = max_fitness(population)
+  console.log max
+
