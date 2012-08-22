@@ -33,7 +33,6 @@ run_sim = function() {
     s.step();
     s.display_canvas('board');
     count++;
-    console.log(count);
     if (count === 200) {
       return;
     }
@@ -47,4 +46,4 @@ run_continually = function() {
   return setTimeout(run_continually, 0);
 };
 
-run_continually();
+setTimeout(run_continually, 5000);
