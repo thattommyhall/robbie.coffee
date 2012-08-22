@@ -4,18 +4,18 @@ fittest = (new Simulation).random_dna()
 socket = io.connect('http://109.107.37.65')
 #socket = io.connect('http://localhost:9292')
 
-status
-
 socket.on 'status', (new_status) ->
   #   connected: 30
   #   fittest: {dna: somelongishstring,  fitness: number}
   #   uptime: seconds_uptime
 
-  status = new_status
-  refresh()
+  refresh(new_status)
 
-refresh = ->
-  #update the page
+refresh = (status)->
+  $('#connected').html(status.connected)
+  $('#fittest-dna').html(status.fittest.dna)
+  $('#uptime').html(status.uptime)
+  $('#fittest-fitness').html(status.fittest.fitness)
 
 launch_worker = ->
   worker1 = new Worker("/javascripts/robbie/worker.js");

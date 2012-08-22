@@ -5,16 +5,16 @@ fittest = (new Simulation).random_dna();
 
 socket = io.connect('http://109.107.37.65');
 
-status;
-
-
 socket.on('status', function(new_status) {
-  var status;
-  status = new_status;
-  return refresh();
+  return refresh(new_status);
 });
 
-refresh = function() {};
+refresh = function(status) {
+  $('#connected').html(status.connected);
+  $('#fittest-dna').html(status.fittest.dna);
+  $('#uptime').html(status.uptime);
+  return $('#fittest-fitness').html(status.fittest.fitness);
+};
 
 launch_worker = function() {
   var worker1;
