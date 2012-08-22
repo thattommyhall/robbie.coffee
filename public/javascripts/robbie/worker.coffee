@@ -62,9 +62,7 @@ socket.on 'error', ->
   postMessage('error')
 
 tick = ->
-  #postMessage "Evolving"
   for i in [0...10]
-    #postMessage i
     population = evolve(population) if population.length > 1
   socket.emit 'result', population
   setTimeout tick,0

@@ -1,5 +1,22 @@
 fittest = (new Simulation).random_dna()
 
+
+socket = io.connect('http://109.107.37.65')
+#socket = io.connect('http://localhost:9292')
+
+status
+
+socket.on 'status', (new_status) ->
+  #   connected: 30
+  #   fittest: {dna: somelongishstring,  fitness: number}
+  #   uptime: seconds_uptime
+
+  status = new_status
+  refresh()
+
+refresh = ->
+  #update the page
+
 launch_worker = ->
   worker1 = new Worker("/javascripts/robbie/worker.js");
   worker1.postMessage("");

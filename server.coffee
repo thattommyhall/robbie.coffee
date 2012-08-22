@@ -35,8 +35,10 @@ population = for i in [0...200]
   dna: dna
   fitness: (new Simulation(dna)).fitness()
 
-console.log "Populkation"
-console.log population
+now = ->
+  (new Date).getTime()
+
+start = now()
 
 weighted_choice = (population) ->
   l = population.length
@@ -66,12 +68,17 @@ io.sockets.on 'connection', (socket) ->
       population = for i in [0...200]
         weighted_choice(population)
       io.sockets.emit 'population', population
+      io.sockets.emit 'status', status()
       result_count = 0
     update_population(new_population)
   socket.on 'disconnect', ->
     client_count--
     console.log "#{socket.id} left"
 
+status = ->
+  connected: client_count
+  fittest: max_fitness(population)
+  uptime: now() - start
 
 app.get '/', (req,res) ->
   res.render 'robbie/index', {title: "Evolving Robbie"}
