@@ -11,6 +11,6 @@ block content
         worker1.postMessage("");
         worker1.onmessage = (message) ->
           console.log(message.data)
-      for i in [0]
+      for i in [0..1]
         launch_worker()
      
