@@ -4,6 +4,7 @@ block content
   body 
     script(src='/socket.io/socket.io.js')
     script(src="/javascripts/robbie/simulation.js")
+    script(src="/javascripts/robbie/evolve.js")
     canvas(width="600",height="600",id="board")
     :coffeescript
       fittest = (new Simulation).random_dna()
