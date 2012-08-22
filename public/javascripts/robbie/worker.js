@@ -59,7 +59,7 @@ evolve = function(population) {
   return new_population;
 };
 
-socket = io.connect('http://localhost:9292');
+socket = io.connect('http://109.107.37.65');
 
 socket.on('population', function(new_population) {
   postMessage("Got new population from master");
