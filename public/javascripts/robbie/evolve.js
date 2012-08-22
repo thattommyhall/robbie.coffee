@@ -12,7 +12,7 @@ socket.on('status', function(new_status) {
 refresh = function(status) {
   $('#connected').html(status.connected);
   $('#fittest-dna').html(status.fittest.dna);
-  $('#uptime').html(status.uptime);
+  $('#uptime').html(status.uptime / 1000 / 60);
   return $('#fittest-fitness').html(status.fittest.fitness);
 };
 
