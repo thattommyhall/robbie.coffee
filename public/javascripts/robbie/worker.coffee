@@ -3,6 +3,9 @@ importScripts('/javascripts/underscore.js')
 importScripts('/javascripts/tth_.js')
 importScripts('/javascripts/robbie/simulation.js')
 
+socket = io.connect('http://109.107.37.65')
+#socket = io.connect('http://localhost:9292')
+
 population = []
 
 weighted_choice = (population) ->
@@ -46,8 +49,6 @@ evolve = (population) ->
       fitness: (new Simulation(dna2).fitness())
   new_population
 
-socket = io.connect('http://109.107.37.65')
-#socket = io.connect('http://localhost:9292')
 
 socket.on 'population', (new_population) ->
   postMessage "Got new population from master"

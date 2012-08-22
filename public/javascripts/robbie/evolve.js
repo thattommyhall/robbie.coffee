@@ -46,4 +46,4 @@ run_continually = function() {
   return setTimeout(run_continually, 0);
 };
 
-setTimeout(run_continually, 5000);
+$(document).ready(run_continually);

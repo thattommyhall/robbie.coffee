@@ -9,6 +9,8 @@ importScripts('/javascripts/tth_.js');
 
 importScripts('/javascripts/robbie/simulation.js');
 
+socket = io.connect('http://109.107.37.65');
+
 population = [];
 
 weighted_choice = function(population) {
@@ -70,8 +72,6 @@ evolve = function(population) {
   }
   return new_population;
 };
-
-socket = io.connect('http://109.107.37.65');
 
 socket.on('population', function(new_population) {
   postMessage("Got new population from master");
