@@ -55,6 +55,12 @@ socket.on 'population', (new_population) ->
   postMessage max_fitness(population)
   population = population.concat new_population
 
+socket.on 'reset', ->
+  population = for i in [0...200]
+    dna = (new Simulation).random_dna()
+    dna: dna
+    fitness: (new Simulation(dna)).fitness()
+
 socket.on 'connect_failed', ->
   postMessage('connect failed')
 

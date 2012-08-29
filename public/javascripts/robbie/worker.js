@@ -79,6 +79,22 @@ socket.on('population', function(new_population) {
   return population = population.concat(new_population);
 });
 
+socket.on('reset', function() {
+  var dna, i;
+  return population = (function() {
+    var _i, _results;
+    _results = [];
+    for (i = _i = 0; _i < 200; i = ++_i) {
+      dna = (new Simulation).random_dna();
+      _results.push({
+        dna: dna,
+        fitness: (new Simulation(dna)).fitness()
+      });
+    }
+    return _results;
+  })();
+});
+
 socket.on('connect_failed', function() {
   return postMessage('connect failed');
 });

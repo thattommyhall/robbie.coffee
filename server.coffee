@@ -87,6 +87,8 @@ reset = ->
     dna: dna
     fitness: (new Simulation(dna)).fitness()
   start = now()
+  io.sockets.emit 'reset'
+
 
 status = ->
   connected: client_count
