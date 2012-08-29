@@ -21,8 +21,8 @@ Simulation = (function() {
   Simulation.prototype.reset = function() {
     this.board = this.random_board();
     this.score = 0;
-    this.x = 1;
-    return this.y = 1;
+    this.x = _.random([1, 2, 3, 4, 5, 6, 7, 8, 9, 10]);
+    return this.y = _.random([1, 2, 3, 4, 5, 6, 7, 8, 9, 10]);
   };
 
   Simulation.prototype.random_board = function() {

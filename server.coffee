@@ -36,7 +36,7 @@ now = ->
   (new Date).getTime()
 
 start = now()
-thirty_mins = 3*60*1000
+thirty_mins = 30*60*1000
 
 weighted_choice = (population) ->
   l = population.length
@@ -86,6 +86,7 @@ reset = ->
     dna = (new Simulation).random_dna()
     dna: dna
     fitness: (new Simulation(dna)).fitness()
+  start = now()
 
 status = ->
   connected: client_count

@@ -12,8 +12,8 @@ class Simulation
   reset: ->
     @board = @random_board()
     @score = 0
-    @x = 1
-    @y = 1
+    @x = _.random([1..10])
+    @y = _.random([1..10])
 
   random_board: -> for y in [0..11]
     for x in [0..11]
