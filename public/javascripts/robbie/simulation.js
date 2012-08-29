@@ -14,8 +14,8 @@ Simulation = (function() {
     this.strategy = strategy;
     this.board = this.random_board();
     this.score = 0;
-    this.x = 1;
-    this.y = 1;
+    this.x = _.random([1, 2, 3, 4, 5, 6, 7, 8, 9, 10]);
+    this.y = _.random([1, 2, 3, 4, 5, 6, 7, 8, 9, 10]);
   }
 
   Simulation.prototype.reset = function() {

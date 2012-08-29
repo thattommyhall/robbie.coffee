@@ -6,8 +6,8 @@ class Simulation
   constructor: (@strategy) ->
     @board = @random_board()
     @score = 0
-    @x = 1
-    @y = 1
+    @x = _.random([1..10])
+    @y = _.random([1..10])
 
   reset: ->
     @board = @random_board()
