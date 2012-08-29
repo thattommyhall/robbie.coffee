@@ -30,15 +30,13 @@ max_fitness = (population) ->
     max = strategy if strategy.fitness > max.fitness
   max
 
-population = for i in [0...200]
-  dna = (new Simulation).random_dna()
-  dna: dna
-  fitness: (new Simulation(dna)).fitness()
+population = []
 
 now = ->
   (new Date).getTime()
 
 start = now()
+thirty_mins = 3*60*1000
 
 weighted_choice = (population) ->
   l = population.length
@@ -75,6 +73,20 @@ io.sockets.on 'connection', (socket) ->
     client_count--
     console.log "#{socket.id} left"
 
+update_population = (new_population) ->
+  population = population.concat new_population
+  console.log population.length
+  max = max_fitness(population)
+  console.log max
+  reset() if now()-start > thirty_mins
+
+
+reset = ->
+  population = for i in [0...200]
+    dna = (new Simulation).random_dna()
+    dna: dna
+    fitness: (new Simulation(dna)).fitness()
+
 status = ->
   connected: client_count
   fittest: max_fitness(population)
@@ -86,8 +98,4 @@ app.get '/', (req,res) ->
 app.get '/hoipe', (req, res) ->
   res.render('robbie/hoipe', { title: "Here's one I prepared earlier" })
 
-update_population = (new_population) ->
-  population = population.concat new_population
-  console.log population.length
-  max = max_fitness(population)
-  console.log max
+reset()

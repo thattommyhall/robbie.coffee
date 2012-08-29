@@ -32,7 +32,7 @@ after "deploy:restart", "deploy:cleanup"
 
 namespace :deploy do
   task :restart do
-    sudo "stop robbie"
+    sudo "stop robbie;true"
     sudo "start robbie"
   end
 end
