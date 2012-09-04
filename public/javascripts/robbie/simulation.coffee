@@ -19,7 +19,7 @@ class Simulation
     for x in [0..11]
       if x is 0 or y is 0 or x is 11 or y is 11
         WALL
-      else if Math.random() < 0.5 then CUP else EMPTY
+      else if Math.random() < 0.1 then CUP else EMPTY
 
   step: ->
     up = @board[@y-1][@x]
