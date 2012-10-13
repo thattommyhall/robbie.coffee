@@ -1,6 +1,5 @@
 fittest = (new Simulation).random_dna()
 
-
 socket = io.connect('http://109.107.37.65')
 #socket = io.connect('http://localhost:9292')
 
@@ -26,7 +25,7 @@ launch_worker = ->
     else
       console.log(message.data)
 
-for i in [0]
+for i in [0..4]
   launch_worker()
 
 run_sim = ->
@@ -48,5 +47,3 @@ run_continually = ->
   setTimeout run_continually,0
 
 $(document).ready run_continually
-
-

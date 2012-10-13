@@ -26,7 +26,6 @@ max_fitness = (population) ->
     max = strategy if strategy.fitness > max.fitness
   max
 
-
 evolve = (population) ->
   new_population = []
   for i in [0...100]

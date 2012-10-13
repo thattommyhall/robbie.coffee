@@ -23,7 +23,6 @@ app.configure 'development', ->
 server = http.createServer(app).listen app.get('port'), ->
   console.log "Express serverlistening on port " + app.get('port')
 
-
 max_fitness = (population) ->
   max = population[0]
   for strategy in population
@@ -80,7 +79,6 @@ update_population = (new_population) ->
   console.log max
   reset() if now()-start > thirty_mins
 
-
 reset = ->
   population = for i in [0...200]
     dna = (new Simulation).random_dna()
@@ -89,16 +87,18 @@ reset = ->
   start = now()
   io.sockets.emit 'reset'
 
-
 status = ->
   connected: client_count
   fittest: max_fitness(population)
   uptime: now() - start
 
 app.get '/', (req,res) ->
-  res.render 'robbie/index', {title: "Evolving Robbie"}
+  res.render 'robbie/index', title: "Evolving Robbie"
 
 app.get '/hoipe', (req, res) ->
-  res.render('robbie/hoipe', { title: "Here's one I prepared earlier" })
+  res.render 'robbie/hoipe', title: "Here's one I prepared earlier"
+
+app.get '/voting', (req,res) ->
+  res.render 'voting', title: "Majority Voting"
 
 reset()
