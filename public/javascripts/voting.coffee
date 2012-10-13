@@ -8,19 +8,21 @@ voting = ->
   context.fillStyle = background
   context.fillRect(0,0,board.width,board.height)
   padding = 0
-  cells = 1001
+  cells = 501
   cell_size = (board.width - 2*padding) / cells
 
   fill_sq = (x,y) ->
     coords = [x * cell_size + padding, y * cell_size + padding, cell_size, cell_size]
-    context.strokeStyle = line_colour
+    #context.strokeStyle = line_colour
     context.strokeRect.apply context, coords
     context.fillRect.apply context, coords
   alive = (x,y) ->
     context.fillStyle = liveColor
+    context.strokeStyle = liveColor
     fill_sq(x,y)
   dead = (x,y) ->
     context.fillStyle = deadColor
+    context.strokeStyle = deadColor
     fill_sq(x,y)
 
   p = 0.5 + Math.random() / 10

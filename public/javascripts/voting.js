@@ -12,21 +12,22 @@ voting = function() {
   context.fillStyle = background;
   context.fillRect(0, 0, board.width, board.height);
   padding = 0;
-  cells = 1001;
+  cells = 501;
   cell_size = (board.width - 2 * padding) / cells;
   fill_sq = function(x, y) {
     var coords;
     coords = [x * cell_size + padding, y * cell_size + padding, cell_size, cell_size];
-    context.strokeStyle = line_colour;
     context.strokeRect.apply(context, coords);
     return context.fillRect.apply(context, coords);
   };
   alive = function(x, y) {
     context.fillStyle = liveColor;
+    context.strokeStyle = liveColor;
     return fill_sq(x, y);
   };
   dead = function(x, y) {
     context.fillStyle = deadColor;
+    context.strokeStyle = deadColor;
     return fill_sq(x, y);
   };
   p = 0.5 + Math.random() / 10;
