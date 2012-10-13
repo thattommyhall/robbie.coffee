@@ -2,7 +2,7 @@
 var voting;
 
 voting = function() {
-  var alive, background, board, cell_size, cells, context, dead, deadColor, draw_line, fill_sq, i, line_colour, liveColor, lookup, majority, p, padding, state, t, tick, _i, _ref;
+  var alive, background, board, cell_size, cells, context, dead, deadColor, draw_line, fill_sq, i, line_colour, liveColor, lookup, majority, p, padding, state, t, tick;
   board = document.getElementById('voteing');
   context = board.getContext('2d');
   line_colour = '#cdcdcd';
@@ -64,9 +64,6 @@ voting = function() {
     }
     return state[position];
   };
-  for (i = _i = -3, _ref = cells + 3; -3 <= _ref ? _i < _ref : _i > _ref; i = -3 <= _ref ? ++_i : --_i) {
-    console.log("" + i + " - " + (lookup(i)));
-  }
   majority = function(a, b, c) {
     if (a + b + c >= 2) {
       return 1;
@@ -78,9 +75,9 @@ voting = function() {
     var new_state, pos;
     draw_line(t, state);
     new_state = (function() {
-      var _j, _results;
+      var _i, _results;
       _results = [];
-      for (pos = _j = 0; 0 <= cells ? _j < cells : _j > cells; pos = 0 <= cells ? ++_j : --_j) {
+      for (pos = _i = 0; 0 <= cells ? _i < cells : _i > cells; pos = 0 <= cells ? ++_i : --_i) {
         if (state[pos] === 0) {
           _results.push(majority(lookup(pos), lookup(pos - 1), lookup(pos - 3)));
         } else {

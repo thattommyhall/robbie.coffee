@@ -1,5 +1,3 @@
-
-
 voting = ->
   board = document.getElementById('voteing')
   context = board.getContext('2d')
@@ -43,9 +41,6 @@ voting = ->
     if position < 0
       return lookup(position + cells)
     state[position]
-
-  for i in [-3...cells+3]
-    console.log "#{i} - #{lookup(i)}"
 
   majority = (a,b,c) ->
     if a+b+c >= 2 then 1 else 0
