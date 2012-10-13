@@ -12,7 +12,7 @@ voting = function() {
   context.fillStyle = background;
   context.fillRect(0, 0, board.width, board.height);
   padding = 0;
-  cells = 101;
+  cells = 1001;
   cell_size = (board.width - 2 * padding) / cells;
   fill_sq = function(x, y) {
     var coords;
@@ -92,7 +92,7 @@ voting = function() {
     t++;
     state = new_state;
     if (t < cells) {
-      return setTimeout(tick, 50);
+      return setTimeout(tick, 0);
     }
   };
   return tick();
