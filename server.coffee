@@ -94,7 +94,10 @@ status = ->
   fittest: max_fitness(population)
   uptime: now() - start
 
-setInterval -> console.log status, 5000
+log_status = ->
+  console.log status
+
+setInterval log_status, 5000
 
 app.get '/', (req,res) ->
   res.redirect '/ca/evolve'
