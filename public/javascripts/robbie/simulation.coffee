@@ -1,3 +1,5 @@
+_ = require '../tth_' if module?.exports?
+
 class Simulation
   EMPTY = 0
   CUP = 1

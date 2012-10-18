@@ -8,8 +8,8 @@ _.mixin
       key = _.random(_.keys(list))
       return [key,list[key]]
 
-if global?
-  global['_'] = _
-
-if window?
+if module?.exports?
+  module.exports = _
+  _._ = _
+else
   window['_'] = _

@@ -1,7 +1,7 @@
 express = require 'express'
 http = require 'http'
 path = require 'path'
-require './public/javascripts/tth_'
+_ = require './public/javascripts/tth_'
 Simulation = require('./public/javascripts/robbie/simulation.js').Simulation
 
 app = express()
@@ -93,14 +93,19 @@ status = ->
   uptime: now() - start
 
 app.get '/', (req,res) ->
-  res.render 'robbie/index', title: "Evolving Robbie"
+  res.redirect '/ca/evolve'
 
-app.get '/hoipe', (req, res) ->
-  res.render 'robbie/hoipe', title: "Here's one I prepared earlier"
+app.get '/robbie/evolve', (req,res) ->
+  res.render 'robbie/evolve', title: "Evolving Robbie"
 
-app.get '/voting', (req,res) ->
-  console.log req.query
-  res.render 'voting',
+app.get '/robbie/display', (req, res) ->
+  res.render 'robbie/display', title: "Here's one I prepared earlier"
+
+app.get '/ca/evolve', (req, res) ->
+  res.render 'ca/evolve', title: "EVOLVING..."
+
+app.get '/ca/display', (req,res) ->
+  res.render 'ca/display',
     title: "Majority Voting"
     spec:
       cells: req.query.cells

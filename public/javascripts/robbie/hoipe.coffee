@@ -4,7 +4,7 @@ window.robbie = ->
   low_frequency = 'RGEEGEWGEWGRWGGWG0EGNSGW0RSSGNERRSGRSGGSEGRWSSGWRSWGEGNGNEGRWG0WGRNENNWGEGRRN0SESNGEEEGNG0NRSSG0NGWNG0N0SRE0NN0RRSNSGWGGERR0RNSNS0RENS0NGGNGGWWWNRSNWNNWERREERE0RSSGEEGWWGNSGESRNWWSREN0ER00NRGNSRRRRNSGS0RRSRRR0GSS00WG00RNSSSNN0GG0NEG0WWNRNWRNN'
   #low is 10%
   genome = (window.location.hash or second).replace('#', '')
-  console.log genome
+  #console.log genome
   s = new Simulation(genome)
   s.display_canvas('board')
   animation_rate = 100

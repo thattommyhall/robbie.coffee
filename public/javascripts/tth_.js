@@ -18,10 +18,9 @@ _.mixin({
   }
 });
 
-if (typeof global !== "undefined" && global !== null) {
-  global['_'] = _;
-}
-
-if (typeof window !== "undefined" && window !== null) {
+if ((typeof module !== "undefined" && module !== null ? module.exports : void 0) != null) {
+  module.exports = _;
+  _._ = _;
+} else {
   window['_'] = _;
 }
