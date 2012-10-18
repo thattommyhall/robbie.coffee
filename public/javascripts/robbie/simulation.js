@@ -39,7 +39,7 @@ Simulation = (function() {
         for (x = _j = 0; _j <= 11; x = ++_j) {
           if (x === 0 || y === 0 || x === 11 || y === 11) {
             _results1.push(WALL);
-          } else if (Math.random() < 0.1) {
+          } else if (Math.random() < 0.5) {
             _results1.push(CUP);
           } else {
             _results1.push(EMPTY);
