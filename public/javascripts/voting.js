@@ -11,7 +11,7 @@ voting = function(spec) {
   board = document.getElementById('voteing');
   context = board.getContext('2d');
   line_colour = '#cdcdcd';
-  background = '#fff';
+  background = '#eee';
   liveColor = '#666';
   deadColor = '#eee';
   context.fillStyle = background;
@@ -27,8 +27,8 @@ voting = function(spec) {
   fill_sq = function(x, y) {
     var coords;
     coords = [x * cell_size + padding, y * cell_size + padding, cell_size, cell_size];
-    context.strokeRect.apply(context, coords);
-    return context.fillRect.apply(context, coords);
+    context.fillRect.apply(context, coords);
+    return context.strokeRect.apply(context, coords);
   };
   alive = function(x, y) {
     context.fillStyle = liveColor;

@@ -9,7 +9,8 @@ voting = (spec) ->
   board = document.getElementById('voteing')
   context = board.getContext('2d')
   line_colour = '#cdcdcd'
-  background = '#fff'
+  #background = '#fff'
+  background = '#eee'
   liveColor = '#666'
   deadColor = '#eee'
   context.fillStyle = background
@@ -25,9 +26,8 @@ voting = (spec) ->
 
   fill_sq = (x,y) ->
     coords = [x * cell_size + padding, y * cell_size + padding, cell_size, cell_size]
-    #context.strokeStyle = line_colour
-    context.strokeRect.apply context, coords
     context.fillRect.apply context, coords
+    context.strokeRect.apply context, coords
   alive = (x,y) ->
     context.fillStyle = liveColor
     context.strokeStyle = liveColor
