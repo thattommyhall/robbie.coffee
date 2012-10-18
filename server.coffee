@@ -74,10 +74,10 @@ io.sockets.on 'connection', (socket) ->
 
 update_population = (new_population) ->
   population = population.concat new_population
-  console.log population.length
+  #console.log population.length
   max = max_fitness(population)
-  console.log max
-  reset() if now()-start > thirty_mins
+  #console.log max
+  #reset() if now()-start > thirty_mins
 
 reset = ->
   population = for i in [0...200]
