@@ -11,5 +11,5 @@ _.mixin
 if module?.exports?
   module.exports = _
   _._ = _
-else
+else if window?
   window['_'] = _
