@@ -95,7 +95,7 @@ status = ->
   uptime: now() - start
 
 log_status = ->
-  console.log status
+  console.log status()
 
 setInterval log_status, 5000
 
