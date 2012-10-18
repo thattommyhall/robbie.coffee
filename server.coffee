@@ -21,7 +21,7 @@ app.configure 'development', ->
   app.use express.errorHandler()
 
 server = http.createServer(app).listen app.get('port'), ->
-  console.log "Express serverlistening on port " + app.get('port')
+  console.log "Express server listening on port " + app.get('port')
 
 max_fitness = (population) ->
   max = population[0]
@@ -99,6 +99,11 @@ app.get '/hoipe', (req, res) ->
   res.render 'robbie/hoipe', title: "Here's one I prepared earlier"
 
 app.get '/voting', (req,res) ->
-  res.render 'voting', title: "Majority Voting"
+  console.log req.query
+  res.render 'voting',
+    title: "Majority Voting"
+    spec:
+      cells: req.query.cells
+      dna: req.query.dna
 
 reset()

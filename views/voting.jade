@@ -1,6 +1,6 @@
 extends layout
 block content
-  body(onload='voting()')
+  body(onload="voting(#{JSON.stringify(spec)})")
     script(src='/javascripts/voting.js')
     canvas(width="800",height="800",id="voteing")
     #stats

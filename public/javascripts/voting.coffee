@@ -1,4 +1,11 @@
-voting = ->
+now = ->
+  (new Date).getTime()
+
+
+voting = (spec) ->
+  console.log spec
+  #spec = JSON.parse(spec) if spec?
+
   board = document.getElementById('voteing')
   context = board.getContext('2d')
   line_colour = '#cdcdcd'
@@ -8,7 +15,12 @@ voting = ->
   context.fillStyle = background
   context.fillRect(0,0,board.width,board.height)
   padding = 0
-  cells = 501
+  console.log cells
+  if spec?.cells?
+    cells = parseInt(spec.cells)
+  else
+    cells = 101
+
   cell_size = (board.width - 2*padding) / cells
 
   fill_sq = (x,y) ->
@@ -24,8 +36,8 @@ voting = ->
     context.fillStyle = deadColor
     context.strokeStyle = deadColor
     fill_sq(x,y)
-
-  p = 0.5 + Math.random() / 10
+  power = Math.floor(Math.random() * 10)
+  p = 0.5
   t = 0
   state = for i in [0...cells]
     if Math.random() > p
@@ -58,5 +70,11 @@ voting = ->
     state = new_state
     if t < cells
       setTimeout tick,0
+    else
+      end = now()
+      console.log "took #{end-start}"
 
+  start = now()
   tick()
+
+  null
