@@ -71,6 +71,7 @@ io.sockets.on 'connection', (socket) ->
   client_count++
   socket.emit 'population', population
   socket.emit 'status', status()
+  socket.emit 'reset'
   socket.on 'result', (new_population) ->
     #console.log "got result from #{socket.id}"
     result_count++
