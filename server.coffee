@@ -53,6 +53,7 @@ client_count = 0
 result_count = 0
 io = require('socket.io').listen(server)
 io.set("log level", 1)
+io.set('transports', ['xhr-polling'])
 io.sockets.on 'connection', (socket) ->
   console.log "#{socket.id} connected"
   client_count++
