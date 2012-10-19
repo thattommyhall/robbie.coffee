@@ -53,7 +53,18 @@ client_count = 0
 result_count = 0
 io = require('socket.io').listen(server)
 io.set("log level", 1)
-#io.set('transports', ['xhr-polling'])
+io.enable('browser client minification')
+io.enable('browser client etag')
+io.enable('browser client gzip')
+io.set('log level', 1);                    // reduce logging
+io.set('transports', [
+#    'websocket'
+  , 'flashsocket'
+  , 'htmlfile'
+  , 'xhr-polling'
+  , 'jsonp-polling'
+]);
+
 io.sockets.on 'connection', (socket) ->
   console.log "#{socket.id} connected"
   client_count++
