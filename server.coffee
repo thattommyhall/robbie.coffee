@@ -56,14 +56,15 @@ io.set("log level", 1)
 io.enable('browser client minification')
 io.enable('browser client etag')
 io.enable('browser client gzip')
-io.set('log level', 1);                    // reduce logging
-io.set('transports', [
+io.set('log level', 1)
+io.set 'transports',
+[
 #    'websocket'
-  , 'flashsocket'
+   'flashsocket'
   , 'htmlfile'
   , 'xhr-polling'
   , 'jsonp-polling'
-]);
+]
 
 io.sockets.on 'connection', (socket) ->
   console.log "#{socket.id} connected"
