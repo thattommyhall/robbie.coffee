@@ -98,7 +98,7 @@ log_status = ->
 setInterval log_status, 5000
 
 app.get '/', (req,res) ->
-  res.redirect '/ca/evolve'
+  res.redirect '/robbie/evolve'
 
 app.get '/robbie/evolve', (req,res) ->
   res.render 'robbie/evolve', title: "Evolving Robbie"

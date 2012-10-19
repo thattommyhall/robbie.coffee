@@ -100,7 +100,7 @@ socket.on('connect_failed', function() {
 });
 
 socket.on('error', function() {
-  return postMessage('error');
+  return postMessage('error in the socket');
 });
 
 tick = function() {

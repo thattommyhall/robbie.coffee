@@ -64,7 +64,7 @@ socket.on 'connect_failed', ->
   postMessage('connect failed')
 
 socket.on 'error', ->
-  postMessage('error')
+  postMessage('error in the socket')
 
 tick = ->
   for i in [0...10]
