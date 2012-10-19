@@ -9,13 +9,6 @@ socket.on('status', function(new_status) {
   return refresh(new_status);
 });
 
-refresh = function(status) {
-  $('#connected').html(status.connected);
-  $('#fittest-dna').html(status.fittest.dna);
-  $('#uptime').html("" + ((status.uptime / 1000 / 60).toFixed(2)) + " Minutes");
-  return $('#fittest-fitness').html(status.fittest.fitness);
-};
-
 launch_worker = function() {
   var worker1;
   worker1 = new Worker("/javascripts/robbie/worker.js");
@@ -52,9 +45,16 @@ run_sim = function() {
   return step();
 };
 
+refresh = function(status) {
+  $('#connected').html(status.connected);
+  $('#fittest-dna').html(status.fittest.dna);
+  $('#uptime').html("" + ((status.uptime / 1000 / 60).toFixed(2)) + " Minutes");
+  return $('#fittest-fitness').html(status.fittest.fitness);
+};
+
 run_continually = function() {
   run_sim();
-  return setTimeout(run_continually, 0);
+  return setTimeout(run_continually, 3000);
 };
 
 $(document).ready(run_continually);

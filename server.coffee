@@ -70,6 +70,7 @@ io.sockets.on 'connection', (socket) ->
   console.log "#{socket.id} connected"
   client_count++
   socket.emit 'population', population
+  socket.emit 'status', status()
   socket.on 'result', (new_population) ->
     #console.log "got result from #{socket.id}"
     result_count++
@@ -109,6 +110,11 @@ log_status = ->
   console.log status()
 
 setInterval log_status, 5000
+
+send_status = ->
+  io.sockets.emit 'status', status()
+
+setInterval send_status, 2000
 
 app.get '/', (req,res) ->
   res.redirect '/robbie/evolve'

@@ -3,19 +3,8 @@ fittest = (new Simulation).random_dna()
 #socket = io.connect('')
 socket = io.connect('http://109.107.37.65')
 #socket = io.connect('http://localhost:9292')
-
 socket.on 'status', (new_status) ->
-  #   connected: 30
-  #   fittest: {dna: somelongishstring,  fitness: number}
-  #   uptime: seconds_uptime
-
   refresh(new_status)
-
-refresh = (status)->
-  $('#connected').html(status.connected)
-  $('#fittest-dna').html(status.fittest.dna)
-  $('#uptime').html("#{(status.uptime/1000/60).toFixed(2)} Minutes")
-  $('#fittest-fitness').html(status.fittest.fitness)
 
 launch_worker = ->
   worker1 = new Worker("/javascripts/robbie/worker.js");
@@ -43,8 +32,15 @@ run_sim = ->
     setTimeout step,animation_rate
   step()
 
+refresh = (status)->
+  $('#connected').html(status.connected)
+  $('#fittest-dna').html(status.fittest.dna)
+  $('#uptime').html("#{(status.uptime/1000/60).toFixed(2)} Minutes")
+  $('#fittest-fitness').html(status.fittest.fitness)
+
 run_continually = ->
   run_sim()
-  setTimeout run_continually,0
+  setTimeout run_continually,3000
+
 
 $(document).ready run_continually
