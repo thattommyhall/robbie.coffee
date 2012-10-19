@@ -1,6 +1,3 @@
-io = require('socket.io-client')
-_ = require('./public/javascripts/tth_')
-Simulation = require('./public/javascripts/robbie/simulation').Simulation
 #socket = io.connect('localhost', port: 9292)
 socket = io.connect('http://109.107.37.65')
 
