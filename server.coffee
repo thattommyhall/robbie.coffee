@@ -58,7 +58,7 @@ io.sockets.on 'connection', (socket) ->
   client_count++
   socket.emit 'population', population
   socket.on 'result', (new_population) ->
-    #console.log "got result from #{socket.id}"
+    console.log "got result from #{socket.id}"
     result_count++
     #console.log result_count
     if result_count > client_count
