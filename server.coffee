@@ -87,8 +87,6 @@ reset = ->
   start = now()
   io.sockets.emit 'reset'
 
-
-
 status = ->
   connected: client_count
   fittest: max_fitness(population)
