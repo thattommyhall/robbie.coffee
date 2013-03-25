@@ -6,6 +6,9 @@ socket = io.connect('http://109.107.37.65')
 socket.on 'status', (new_status) ->
   refresh(new_status)
 
+socket.on 'reset', ->
+  window.location.reload(true); 
+
 launch_worker = ->
   worker1 = new Worker("/javascripts/robbie/worker.js");
   worker1.postMessage("");

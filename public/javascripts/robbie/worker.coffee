@@ -48,7 +48,6 @@ evolve = (population) ->
       fitness: (new Simulation(dna2).fitness())
   new_population
 
-
 socket.on 'population', (new_population) ->
   postMessage "Got new population from master"
   postMessage max_fitness(population)

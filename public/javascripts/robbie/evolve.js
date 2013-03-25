@@ -9,6 +9,10 @@ socket.on('status', function(new_status) {
   return refresh(new_status);
 });
 
+socket.on('reset', function() {
+  return window.location.reload(true);
+});
+
 launch_worker = function() {
   var worker1;
   worker1 = new Worker("/javascripts/robbie/worker.js");
