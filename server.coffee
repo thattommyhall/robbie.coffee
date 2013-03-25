@@ -35,7 +35,7 @@ now = ->
   (new Date).getTime()
 
 start = now()
-thirty_mins = 30*60*1000
+thirty_mins = 5*60*1000
 
 weighted_choice = (population) ->
   l = population.length
@@ -92,7 +92,7 @@ update_population = (new_population) ->
   #console.log population.length
   max = max_fitness(population)
   #console.log max
-  #reset() if now()-start > thirty_mins
+  reset() if now()-start > thirty_mins
 
 reset = ->
   population = for i in [0...200]
