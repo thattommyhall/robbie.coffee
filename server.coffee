@@ -93,7 +93,7 @@ update_population = (new_population) ->
   max = max_fitness(population)
   #console.log max
   reset() if now()-start > thirty_mins
-
+  
 reset = ->
   population = for i in [0...200]
     dna = (new Simulation).random_dna()

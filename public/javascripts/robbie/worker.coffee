@@ -59,12 +59,12 @@ reset = ->
     dna: dna
     fitness: (new Simulation(dna)).fitness()
 
-socket.on 'reset', ->
-  reset()
+# socket.on 'reset', ->
+#   reset()
 
-socket.on 'connect_failed', ->
-  postMessage('connect failed')
-  reset()
+# socket.on 'connect_failed', ->
+#   postMessage('connect failed')
+#   reset()
 
 socket.on 'error', ->
   postMessage('error in the socket')

@@ -95,15 +95,6 @@ reset = function() {
   })();
 };
 
-socket.on('reset', function() {
-  return reset();
-});
-
-socket.on('connect_failed', function() {
-  postMessage('connect failed');
-  return reset();
-});
-
 socket.on('error', function() {
   return postMessage('error in the socket');
 });
