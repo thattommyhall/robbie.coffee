@@ -2,7 +2,7 @@ fittest = (new Simulation).random_dna()
 
 #socket = io.connect('')
 socket = io.connect('http://109.107.37.65')
-#socket = io.connect('http://localhost:9292')
+# socket = io.connect('http://localhost:9292')
 socket.on 'status', (new_status) ->
   refresh(new_status)
 
@@ -41,6 +41,5 @@ refresh = (status)->
 run_continually = ->
   run_sim()
   setTimeout run_continually,3000
-
 
 $(document).ready run_continually

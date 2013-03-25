@@ -1,7 +1,6 @@
 now = ->
   (new Date).getTime()
 
-
 voting = (spec) ->
   console.log spec
   #spec = JSON.parse(spec) if spec?

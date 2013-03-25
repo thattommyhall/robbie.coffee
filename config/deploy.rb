@@ -19,7 +19,8 @@ task :custom_setup do
   sudo "chown -R ubuntu:ubuntu #{deploy_to}"
   sudo "add-apt-repository ppa:chris-lea/node.js"
   sudo "apt-get update"
-  sudo "apt-get install -y --force-yes git nodejs nodejs-dev build-essential npm"
+  #nodejs-dev npm
+  sudo "apt-get install -y --force-yes git nodejs build-essential"
   sudo "npm install -g coffee-script"
 end
 
