@@ -71,7 +71,7 @@ io.sockets.on 'connection', (socket) ->
   client_count++
   socket.emit 'population', population
   socket.emit 'status', status()
-  socket.emit 'reset'
+  # socket.emit 'reset'
   socket.on 'result', (new_population) ->
     #console.log "got result from #{socket.id}"
     result_count++
@@ -95,6 +95,7 @@ update_population = (new_population) ->
   reset() if now()-start > thirty_mins
   
 reset = ->
+  console.log "resetting"
   population = for i in [0...200]
     dna = (new Simulation).random_dna()
     dna: dna
