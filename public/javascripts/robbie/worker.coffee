@@ -8,6 +8,8 @@ socket = io.connect('http://109.107.37.65')
 
 population = []
 
+run_id = 0
+
 weighted_choice = (population) ->
   l = population.length
   total = (l + 1)/2 * l
@@ -50,8 +52,10 @@ evolve = (population) ->
 
 socket.on 'population', (new_population) ->
   postMessage "Got new population from master"
-  postMessage max_fitness(population)
-  population = population.concat new_population
+  # postMessage max_fitness(population)
+  population = new_population['population']
+  run_id = new_population['run_id']
+  postMessage run_id
 
 reset = ->
   population = for i in [0...200]
@@ -59,11 +63,11 @@ reset = ->
     dna: dna
     fitness: (new Simulation(dna)).fitness()
 
-# socket.on 'reset', ->
-#   reset()
+socket.on 'reset', ->
+  reset()
 
-# socket.on 'connect_failed', ->
-#   postMessage('connect failed')
+socket.on 'connect_failed', ->
+  postMessage('connect failed')
 #   reset()
 
 socket.on 'error', ->
@@ -72,7 +76,9 @@ socket.on 'error', ->
 tick = ->
   for i in [0...10]
     population = evolve(population) if population.length > 1
-  socket.emit 'result', population
+  socket.emit 'result',
+    population: population
+    run_id: run_id
   setTimeout tick,0
 
 tick()

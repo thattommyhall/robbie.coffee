@@ -35,7 +35,7 @@ now = ->
   (new Date).getTime()
 
 start = now()
-thirty_mins = 5*60*1000
+thirty_mins = 30*60*1000
 
 weighted_choice = (population) ->
   l = population.length
@@ -66,32 +66,44 @@ io.set 'transports',
   , 'jsonp-polling'
 ]
 
+run_id = now()
+
 io.sockets.on 'connection', (socket) ->
   console.log "#{socket.id} connected"
   client_count++
-  socket.emit 'population', population
+  socket.emit 'population',
+    population: population
+    run_id: run_id
+    
   socket.emit 'status', status()
   # socket.emit 'reset'
   socket.on 'result', (new_population) ->
     #console.log "got result from #{socket.id}"
+    pop = new_population['population']
+    id = new_population['run_id']
+    unless id is run_id
+      console.log "incorrect ID"
+      return
     result_count++
+    
     #console.log result_count
     if result_count > client_count
       population = for i in [0...200]
         weighted_choice(population)
-      io.sockets.emit 'population', population
+      run_id = now()
+      io.sockets.emit 'population',
+        run_id: run_id
+        population: population
       io.sockets.emit 'status', status()
       result_count = 0
-    update_population(new_population)
+    update_population(pop)
   socket.on 'disconnect', ->
     client_count--
     console.log "#{socket.id} left"
 
 update_population = (new_population) ->
   population = population.concat new_population
-  #console.log population.length
   max = max_fitness(population)
-  #console.log max
   reset() if now()-start > thirty_mins
   
 reset = ->
