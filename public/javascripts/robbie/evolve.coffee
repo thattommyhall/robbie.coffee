@@ -31,6 +31,7 @@ run_sim = ->
     count++
     if count == 200
       s = new Simulation(fittest)
+      count = 0
     setTimeout step,animation_rate
   step()
 

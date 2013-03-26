@@ -42,6 +42,7 @@ run_sim = function() {
     count++;
     if (count === 200) {
       s = new Simulation(fittest);
+      count = 0;
     }
     return setTimeout(step, animation_rate);
   };
