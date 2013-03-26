@@ -101,7 +101,7 @@ io.sockets.on 'connection', (socket) ->
 
 update_population = (new_population) ->
   population = population.concat new_population
-  max = max_fitness(population)
+  max = max_fitness(population).fitness
   reset() if max > 480
   
 reset = ->
