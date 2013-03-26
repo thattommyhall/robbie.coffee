@@ -52,10 +52,8 @@ evolve = (population) ->
 
 socket.on 'population', (new_population) ->
   postMessage "Got new population from master"
-  # postMessage max_fitness(population)
   population = new_population['population']
   run_id = new_population['run_id']
-  postMessage run_id
 
 reset = ->
   population = for i in [0...200]

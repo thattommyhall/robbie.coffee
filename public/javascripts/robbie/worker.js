@@ -78,8 +78,7 @@ evolve = function(population) {
 socket.on('population', function(new_population) {
   postMessage("Got new population from master");
   population = new_population['population'];
-  run_id = new_population['run_id'];
-  return postMessage(run_id);
+  return run_id = new_population['run_id'];
 });
 
 reset = function() {

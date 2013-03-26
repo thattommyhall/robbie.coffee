@@ -50,6 +50,7 @@ run_sim = function() {
 };
 
 refresh = function(status) {
+  fittest = status.fittest.fitness;
   $('#connected').html(status.connected);
   $('#fittest-dna').html(status.fittest.dna);
   $('#uptime').html("" + ((status.uptime / 1000 / 60).toFixed(2)) + " Minutes");
