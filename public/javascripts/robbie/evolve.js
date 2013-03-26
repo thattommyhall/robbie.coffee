@@ -3,7 +3,7 @@ var fittest, i, launch_worker, refresh, run_sim, socket, _i;
 
 fittest = (new Simulation).random_dna();
 
-socket = io.connect('http://localhost:9292');
+socket = io.connect('http://109.107.37.65');
 
 socket.on('status', function(new_status) {
   return refresh(new_status);

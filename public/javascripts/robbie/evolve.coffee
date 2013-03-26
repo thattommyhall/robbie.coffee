@@ -1,8 +1,8 @@
 fittest = (new Simulation).random_dna()
 
 #socket = io.connect('')
-# socket = io.connect('http://109.107.37.65')
-socket = io.connect('http://localhost:9292')
+socket = io.connect('http://109.107.37.65')
+# socket = io.connect('http://localhost:9292')
 socket.on 'status', (new_status) ->
   refresh(new_status)
 

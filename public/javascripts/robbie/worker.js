@@ -9,7 +9,7 @@ importScripts('/javascripts/tth_.js');
 
 importScripts('/javascripts/robbie/simulation.js');
 
-socket = io.connect('http://localhost:9292');
+socket = io.connect('http://109.107.37.65');
 
 population = [];
 
