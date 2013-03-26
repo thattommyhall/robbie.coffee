@@ -1,8 +1,8 @@
 fittest = (new Simulation).random_dna()
 
 #socket = io.connect('')
-socket = io.connect('http://109.107.37.65')
-# socket = io.connect('http://localhost:9292')
+# socket = io.connect('http://109.107.37.65')
+socket = io.connect('http://localhost:9292')
 socket.on 'status', (new_status) ->
   refresh(new_status)
 
@@ -23,7 +23,6 @@ for i in [0..4]
 
 run_sim = ->
   s = new Simulation(fittest)
-  s.display_canvas('board')
   animation_rate = 100
   count = 0
   step = ->
@@ -31,7 +30,7 @@ run_sim = ->
     s.display_canvas('board')
     count++
     if count == 200
-      return
+      s = new Simulation(fittest)
     setTimeout step,animation_rate
   step()
 
@@ -41,8 +40,4 @@ refresh = (status)->
   $('#uptime').html("#{(status.uptime/1000/60).toFixed(2)} Minutes")
   $('#fittest-fitness').html(status.fittest.fitness)
 
-run_continually = ->
-  run_sim()
-  setTimeout run_continually,3000
-
-$(document).ready run_continually
+$(document).ready run_sim
