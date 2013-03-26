@@ -94,7 +94,7 @@ io.sockets.on 'connection', (socket) ->
         population: population
       io.sockets.emit 'status', status()
       result_count = 0
-    update_population(new_population)
+    update_population(pop)
   socket.on 'disconnect', ->
     client_count--
     console.log "#{socket.id} left"
