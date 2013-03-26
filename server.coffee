@@ -78,15 +78,14 @@ io.sockets.on 'connection', (socket) ->
   socket.emit 'status', status()
   # socket.emit 'reset'
   socket.on 'result', (new_population) ->
-    #console.log "got result from #{socket.id}"
+    
     pop = new_population['population']
     id = new_population['run_id']
     unless id is run_id
       console.log "incorrect ID"
       return
     result_count++
-    
-    #console.log result_count
+    console.log "got valid result from #{socket.id}"
     if result_count > client_count
       population = for i in [0...200]
         weighted_choice(population)
@@ -96,7 +95,7 @@ io.sockets.on 'connection', (socket) ->
         population: population
       io.sockets.emit 'status', status()
       result_count = 0
-    update_population(pop)
+    update_population(new_population)
   socket.on 'disconnect', ->
     client_count--
     console.log "#{socket.id} left"
