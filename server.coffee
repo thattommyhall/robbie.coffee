@@ -78,7 +78,6 @@ io.sockets.on 'connection', (socket) ->
   socket.emit 'status', status()
   # socket.emit 'reset'
   socket.on 'result', (new_population) ->
-    
     pop = new_population['population']
     id = new_population['run_id']
     unless id is run_id
@@ -89,7 +88,7 @@ io.sockets.on 'connection', (socket) ->
     if result_count > client_count
       population = for i in [0...200]
         weighted_choice(population)
-      run_id = now()
+      # run_id = now()
       io.sockets.emit 'population',
         run_id: run_id
         population: population
@@ -103,7 +102,7 @@ io.sockets.on 'connection', (socket) ->
 update_population = (new_population) ->
   population = population.concat new_population
   max = max_fitness(population)
-  reset() if now()-start > thirty_mins
+  reset() if max > 480
   
 reset = ->
   console.log "resetting"
@@ -112,6 +111,7 @@ reset = ->
     dna: dna
     fitness: (new Simulation(dna)).fitness()
   start = now()
+  run_id = now()
   io.sockets.emit 'reset'
 
 status = ->
